@@ -8,11 +8,12 @@ class Doctor extends Model
 {
     public function specialists()
     {
-        return $this->hasMany(Specialist::class);
+        return $this->belongsToMany(Specialist::class);
     }
 
     public function schedules()
     {
         return $this->hasMany(Schedule::class, 'doctor_id');
     }
+
 }

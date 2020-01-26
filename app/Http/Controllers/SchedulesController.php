@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Resources\ScheludeResource;
 use App\Schedule;
+use App\Specialist;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class SchedulesController extends Controller
 {
@@ -15,7 +17,36 @@ class SchedulesController extends Controller
      */
     public function index()
     {
-        return ScheludeResource::collection(Schedule::all());
+        $filter = request('filter');
+        $specialistId = request('specialistId');
+        
+        $doctorIds = Specialist::find($specialistId)->doctors->pluck('id');
+
+        
+
+        if ($filter == 'filter-today') {
+            return ScheludeResource::collection(
+                Schedule::whereDate('from', '=', Carbon::now())
+                ->whereIn('doctor_id', $doctorIds)
+                ->where('from', '<=', Carbon::now('Asia/Jakarta')->endOfDay()->timezone(0))
+                ->orderBy('from', 'asc')
+                ->get());
+        } else if ($filter == 'filter-online') {
+            return ScheludeResource::collection(
+                Schedule::where('to', '>=', Carbon::now())
+                ->where('canOnlineBook', 1)
+                ->whereIn('doctor_id', $doctorIds)
+                ->orderBy('to', 'asc')
+                ->get());
+        }
+
+        error_log('specialist ' . $specialistId);
+        
+        return ScheludeResource::collection(
+            Schedule::where('to', '>=', Carbon::now())
+            ->whereIn('doctor_id', $doctorIds)
+            ->orderBy('from', 'asc')
+            ->get());
     }
 
     /**
