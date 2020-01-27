@@ -18,36 +18,45 @@ class SchedulesController extends Controller
     public function index()
     {
         $filter = request('filter');
-        $specialistId = request('specialistId');
-        
-        $doctorIds = Specialist::find($specialistId)->doctors->pluck('id');
+        $specialistId = request('specialist_id');
+        $doctorId = request('doctor_id');
 
-        
+        $doctorIds = [];
+
+        if ($doctorId == null) {
+            $doctorIds = Specialist::find($specialistId)->doctors->pluck('id');
+        } else {
+            $doctorIds = [$doctorId];
+        }
 
         if ($filter == 'filter-today') {
             return ScheludeResource::collection(
                 Schedule::whereDate('from', '=', Carbon::now())
-                ->whereIn('doctor_id', $doctorIds)
-                ->where('from', '<=', Carbon::now('Asia/Jakarta')->endOfDay()->timezone(0))
-                ->orderBy('from', 'asc')
-                ->get());
+                    ->whereIn('doctor_id', $doctorIds)
+                    ->where('from', '<=', Carbon::now('Asia/Jakarta')->endOfDay()->timezone(0))
+                    ->orderBy('from', 'asc')
+                    ->get()
+            );
         } else if ($filter == 'filter-online') {
             return ScheludeResource::collection(
                 Schedule::where('to', '>=', Carbon::now())
-                ->where('canOnlineBook', 1)
-                ->whereIn('doctor_id', $doctorIds)
-                ->orderBy('to', 'asc')
-                ->get());
+                    ->where('canOnlineBook', 1)
+                    ->whereIn('doctor_id', $doctorIds)
+                    ->orderBy('from', 'asc')
+                    ->get()
+            );
         }
 
         error_log('specialist ' . $specialistId);
-        
+        error_log('doctor '.$doctorId);
         return ScheludeResource::collection(
             Schedule::where('to', '>=', Carbon::now())
-            ->whereIn('doctor_id', $doctorIds)
-            ->orderBy('from', 'asc')
-            ->get());
+                ->whereIn('doctor_id', $doctorIds)
+                ->orderBy('from', 'asc')
+                ->get()
+        );
     }
+
 
     /**
      * Show the form for creating a new resource.

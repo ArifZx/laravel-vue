@@ -86,6 +86,18 @@
 /************************************************************************/
 /******/ ({
 
+/***/ "./node_modules/@babel/runtime/regenerator/index.js":
+/*!**********************************************************!*\
+  !*** ./node_modules/@babel/runtime/regenerator/index.js ***!
+  \**********************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! regenerator-runtime */ "./node_modules/regenerator-runtime/runtime.js");
+
+
+/***/ }),
+
 /***/ "./node_modules/axios/index.js":
 /*!*************************************!*\
   !*** ./node_modules/axios/index.js ***!
@@ -2266,8 +2278,164 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _components_BackComponent__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../components/BackComponent */ "./resources/js/components/BackComponent.vue");
-/* harmony import */ var _appointment_FilterNavigationComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./appointment/FilterNavigationComponent */ "./resources/js/views/appointment/FilterNavigationComponent.vue");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _components_BackComponent__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../components/BackComponent */ "./resources/js/components/BackComponent.vue");
+/* harmony import */ var _appointment_FilterNavigationComponent__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./appointment/FilterNavigationComponent */ "./resources/js/views/appointment/FilterNavigationComponent.vue");
+
+
+function asyncGeneratorStep(gen, resolve, reject, _next, _throw, key, arg) { try { var info = gen[key](arg); var value = info.value; } catch (error) { reject(error); return; } if (info.done) { resolve(value); } else { Promise.resolve(value).then(_next, _throw); } }
+
+function _asyncToGenerator(fn) { return function () { var self = this, args = arguments; return new Promise(function (resolve, reject) { var gen = fn.apply(self, args); function _next(value) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "next", value); } function _throw(err) { asyncGeneratorStep(gen, resolve, reject, _next, _throw, "throw", err); } _next(undefined); }); }; }
+
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -2423,8 +2591,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   name: "AppointmentCreate",
   components: {
-    BackComponent: _components_BackComponent__WEBPACK_IMPORTED_MODULE_0__["default"],
-    FilterNavigation: _appointment_FilterNavigationComponent__WEBPACK_IMPORTED_MODULE_1__["default"]
+    BackComponent: _components_BackComponent__WEBPACK_IMPORTED_MODULE_1__["default"],
+    FilterNavigation: _appointment_FilterNavigationComponent__WEBPACK_IMPORTED_MODULE_2__["default"]
   },
   data: function data() {
     return {
@@ -2432,7 +2600,20 @@ __webpack_require__.r(__webpack_exports__);
       specialists: null,
       selectedSpecialist: null,
       schedules: null,
-      filterMain: "filter-none"
+      selectedSchedule: null,
+      places: null,
+      doctor: null,
+      filterMain: "filter-none",
+      diseases: [{
+        id: 1,
+        name: "Batuk Kronis"
+      }, {
+        id: 3,
+        name: "Sinusitis Kronis"
+      }, {
+        id: 2,
+        name: "Kesulitan Menelan"
+      }]
     };
   },
   methods: {
@@ -2461,23 +2642,144 @@ __webpack_require__.r(__webpack_exports__);
       this.filterMain = event.target.id;
       this.fetchScedule();
     },
-    fetchScedule: function fetchScedule() {
-      var _this2 = this;
+    fetchScedule: function () {
+      var _fetchScedule = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee() {
+        var url, results;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                this.loading = true;
+                url = "/api/schedules?filter=" + this.filterMain + "&specialist_id=" + this.selectedSpecialist + "&doctor_id=" + (this.selectedSchedule ? this.selectedSchedule.doctor.id : "");
+                _context.prev = 2;
+                _context.next = 5;
+                return axios.get(url);
 
-      this.loading = true;
-      axios.get("/api/schedules?filter=" + this.filterMain + "&specialistId=" + this.selectedSpecialist).then(function (results) {
-        _this2.loading = false;
-        console.log(results.data.data);
+              case 5:
+                results = _context.sent;
+                console.log(results.data);
 
-        if (results.status === 200) {
-          _this2.schedules = results.data.data;
-        }
-      })["catch"](function (error) {
-        _this2.loading = false;
-        window.alert(error);
-      });
+                if (results.status === 200) {
+                  this.schedules = results.data.data;
+                }
+
+                this.loading = false;
+                return _context.abrupt("return", results.data.data);
+
+              case 12:
+                _context.prev = 12;
+                _context.t0 = _context["catch"](2);
+                this.loading = false;
+                window.alert(_context.t0);
+
+              case 16:
+              case "end":
+                return _context.stop();
+            }
+          }
+        }, _callee, this, [[2, 12]]);
+      }));
+
+      function fetchScedule() {
+        return _fetchScedule.apply(this, arguments);
+      }
+
+      return fetchScedule;
+    }(),
+    selectSchedule: function selectSchedule(event) {
+      console.log(event.target.parentElement.id);
+      var selectedId = event.target.parentElement.id;
+
+      if (selectedId == null) {
+        window.alert("Error can't fetch shedule id");
+      } else {
+        this.selectedSchedule = this.schedules.filter(function (v) {
+          return v.id == selectedId;
+        })[0];
+      }
+
+      console.log("Selected schedule", this.selectedSchedule);
+      this.fetchDoctor();
     },
-    fetchDoctor: function fetchDoctor(name) {}
+    fetchNearestSchedule: function () {
+      var _fetchNearestSchedule = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee2() {
+        var schedule, schedules;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee2$(_context2) {
+          while (1) {
+            switch (_context2.prev = _context2.next) {
+              case 0:
+                schedule = this.selectedSchedule;
+
+                if (!(this.selectedSchedule == null)) {
+                  _context2.next = 9;
+                  break;
+                }
+
+                this.filterMain = "filter-online";
+                _context2.next = 5;
+                return this.fetchScedule();
+
+              case 5:
+                schedules = _context2.sent;
+                this.schedules = schedules;
+                this.selectedSchedule = this.schedules.slice(0, 1)[0];
+                schedule = this.selectedSchedule;
+
+              case 9:
+                return _context2.abrupt("return", schedule);
+
+              case 10:
+              case "end":
+                return _context2.stop();
+            }
+          }
+        }, _callee2, this);
+      }));
+
+      function fetchNearestSchedule() {
+        return _fetchNearestSchedule.apply(this, arguments);
+      }
+
+      return fetchNearestSchedule;
+    }(),
+    fetchDoctor: function () {
+      var _fetchDoctor = _asyncToGenerator(
+      /*#__PURE__*/
+      _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.mark(function _callee3() {
+        var schedule;
+        return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return this.fetchNearestSchedule();
+
+              case 2:
+                schedule = _context3.sent;
+                this.doctor = schedule.doctor;
+                this.places = this.doctor.activeSchedules.reduce(function (places, doctorSchedule) {
+                  places.push(doctorSchedule.place);
+                  return places;
+                }, []);
+
+              case 5:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3, this);
+      }));
+
+      function fetchDoctor() {
+        return _fetchDoctor.apply(this, arguments);
+      }
+
+      return fetchDoctor;
+    }()
   },
   mounted: function mounted() {
     console.log("selected", this.selectedSpecialist);
@@ -2496,80 +2798,6 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -19934,6 +20162,743 @@ process.umask = function() { return 0; };
 
 /***/ }),
 
+/***/ "./node_modules/regenerator-runtime/runtime.js":
+/*!*****************************************************!*\
+  !*** ./node_modules/regenerator-runtime/runtime.js ***!
+  \*****************************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+/**
+ * Copyright (c) 2014-present, Facebook, Inc.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+ */
+
+var runtime = (function (exports) {
+  "use strict";
+
+  var Op = Object.prototype;
+  var hasOwn = Op.hasOwnProperty;
+  var undefined; // More compressible than void 0.
+  var $Symbol = typeof Symbol === "function" ? Symbol : {};
+  var iteratorSymbol = $Symbol.iterator || "@@iterator";
+  var asyncIteratorSymbol = $Symbol.asyncIterator || "@@asyncIterator";
+  var toStringTagSymbol = $Symbol.toStringTag || "@@toStringTag";
+
+  function wrap(innerFn, outerFn, self, tryLocsList) {
+    // If outerFn provided and outerFn.prototype is a Generator, then outerFn.prototype instanceof Generator.
+    var protoGenerator = outerFn && outerFn.prototype instanceof Generator ? outerFn : Generator;
+    var generator = Object.create(protoGenerator.prototype);
+    var context = new Context(tryLocsList || []);
+
+    // The ._invoke method unifies the implementations of the .next,
+    // .throw, and .return methods.
+    generator._invoke = makeInvokeMethod(innerFn, self, context);
+
+    return generator;
+  }
+  exports.wrap = wrap;
+
+  // Try/catch helper to minimize deoptimizations. Returns a completion
+  // record like context.tryEntries[i].completion. This interface could
+  // have been (and was previously) designed to take a closure to be
+  // invoked without arguments, but in all the cases we care about we
+  // already have an existing method we want to call, so there's no need
+  // to create a new function object. We can even get away with assuming
+  // the method takes exactly one argument, since that happens to be true
+  // in every case, so we don't have to touch the arguments object. The
+  // only additional allocation required is the completion record, which
+  // has a stable shape and so hopefully should be cheap to allocate.
+  function tryCatch(fn, obj, arg) {
+    try {
+      return { type: "normal", arg: fn.call(obj, arg) };
+    } catch (err) {
+      return { type: "throw", arg: err };
+    }
+  }
+
+  var GenStateSuspendedStart = "suspendedStart";
+  var GenStateSuspendedYield = "suspendedYield";
+  var GenStateExecuting = "executing";
+  var GenStateCompleted = "completed";
+
+  // Returning this object from the innerFn has the same effect as
+  // breaking out of the dispatch switch statement.
+  var ContinueSentinel = {};
+
+  // Dummy constructor functions that we use as the .constructor and
+  // .constructor.prototype properties for functions that return Generator
+  // objects. For full spec compliance, you may wish to configure your
+  // minifier not to mangle the names of these two functions.
+  function Generator() {}
+  function GeneratorFunction() {}
+  function GeneratorFunctionPrototype() {}
+
+  // This is a polyfill for %IteratorPrototype% for environments that
+  // don't natively support it.
+  var IteratorPrototype = {};
+  IteratorPrototype[iteratorSymbol] = function () {
+    return this;
+  };
+
+  var getProto = Object.getPrototypeOf;
+  var NativeIteratorPrototype = getProto && getProto(getProto(values([])));
+  if (NativeIteratorPrototype &&
+      NativeIteratorPrototype !== Op &&
+      hasOwn.call(NativeIteratorPrototype, iteratorSymbol)) {
+    // This environment has a native %IteratorPrototype%; use it instead
+    // of the polyfill.
+    IteratorPrototype = NativeIteratorPrototype;
+  }
+
+  var Gp = GeneratorFunctionPrototype.prototype =
+    Generator.prototype = Object.create(IteratorPrototype);
+  GeneratorFunction.prototype = Gp.constructor = GeneratorFunctionPrototype;
+  GeneratorFunctionPrototype.constructor = GeneratorFunction;
+  GeneratorFunctionPrototype[toStringTagSymbol] =
+    GeneratorFunction.displayName = "GeneratorFunction";
+
+  // Helper for defining the .next, .throw, and .return methods of the
+  // Iterator interface in terms of a single ._invoke method.
+  function defineIteratorMethods(prototype) {
+    ["next", "throw", "return"].forEach(function(method) {
+      prototype[method] = function(arg) {
+        return this._invoke(method, arg);
+      };
+    });
+  }
+
+  exports.isGeneratorFunction = function(genFun) {
+    var ctor = typeof genFun === "function" && genFun.constructor;
+    return ctor
+      ? ctor === GeneratorFunction ||
+        // For the native GeneratorFunction constructor, the best we can
+        // do is to check its .name property.
+        (ctor.displayName || ctor.name) === "GeneratorFunction"
+      : false;
+  };
+
+  exports.mark = function(genFun) {
+    if (Object.setPrototypeOf) {
+      Object.setPrototypeOf(genFun, GeneratorFunctionPrototype);
+    } else {
+      genFun.__proto__ = GeneratorFunctionPrototype;
+      if (!(toStringTagSymbol in genFun)) {
+        genFun[toStringTagSymbol] = "GeneratorFunction";
+      }
+    }
+    genFun.prototype = Object.create(Gp);
+    return genFun;
+  };
+
+  // Within the body of any async function, `await x` is transformed to
+  // `yield regeneratorRuntime.awrap(x)`, so that the runtime can test
+  // `hasOwn.call(value, "__await")` to determine if the yielded value is
+  // meant to be awaited.
+  exports.awrap = function(arg) {
+    return { __await: arg };
+  };
+
+  function AsyncIterator(generator) {
+    function invoke(method, arg, resolve, reject) {
+      var record = tryCatch(generator[method], generator, arg);
+      if (record.type === "throw") {
+        reject(record.arg);
+      } else {
+        var result = record.arg;
+        var value = result.value;
+        if (value &&
+            typeof value === "object" &&
+            hasOwn.call(value, "__await")) {
+          return Promise.resolve(value.__await).then(function(value) {
+            invoke("next", value, resolve, reject);
+          }, function(err) {
+            invoke("throw", err, resolve, reject);
+          });
+        }
+
+        return Promise.resolve(value).then(function(unwrapped) {
+          // When a yielded Promise is resolved, its final value becomes
+          // the .value of the Promise<{value,done}> result for the
+          // current iteration.
+          result.value = unwrapped;
+          resolve(result);
+        }, function(error) {
+          // If a rejected Promise was yielded, throw the rejection back
+          // into the async generator function so it can be handled there.
+          return invoke("throw", error, resolve, reject);
+        });
+      }
+    }
+
+    var previousPromise;
+
+    function enqueue(method, arg) {
+      function callInvokeWithMethodAndArg() {
+        return new Promise(function(resolve, reject) {
+          invoke(method, arg, resolve, reject);
+        });
+      }
+
+      return previousPromise =
+        // If enqueue has been called before, then we want to wait until
+        // all previous Promises have been resolved before calling invoke,
+        // so that results are always delivered in the correct order. If
+        // enqueue has not been called before, then it is important to
+        // call invoke immediately, without waiting on a callback to fire,
+        // so that the async generator function has the opportunity to do
+        // any necessary setup in a predictable way. This predictability
+        // is why the Promise constructor synchronously invokes its
+        // executor callback, and why async functions synchronously
+        // execute code before the first await. Since we implement simple
+        // async functions in terms of async generators, it is especially
+        // important to get this right, even though it requires care.
+        previousPromise ? previousPromise.then(
+          callInvokeWithMethodAndArg,
+          // Avoid propagating failures to Promises returned by later
+          // invocations of the iterator.
+          callInvokeWithMethodAndArg
+        ) : callInvokeWithMethodAndArg();
+    }
+
+    // Define the unified helper method that is used to implement .next,
+    // .throw, and .return (see defineIteratorMethods).
+    this._invoke = enqueue;
+  }
+
+  defineIteratorMethods(AsyncIterator.prototype);
+  AsyncIterator.prototype[asyncIteratorSymbol] = function () {
+    return this;
+  };
+  exports.AsyncIterator = AsyncIterator;
+
+  // Note that simple async functions are implemented on top of
+  // AsyncIterator objects; they just return a Promise for the value of
+  // the final result produced by the iterator.
+  exports.async = function(innerFn, outerFn, self, tryLocsList) {
+    var iter = new AsyncIterator(
+      wrap(innerFn, outerFn, self, tryLocsList)
+    );
+
+    return exports.isGeneratorFunction(outerFn)
+      ? iter // If outerFn is a generator, return the full iterator.
+      : iter.next().then(function(result) {
+          return result.done ? result.value : iter.next();
+        });
+  };
+
+  function makeInvokeMethod(innerFn, self, context) {
+    var state = GenStateSuspendedStart;
+
+    return function invoke(method, arg) {
+      if (state === GenStateExecuting) {
+        throw new Error("Generator is already running");
+      }
+
+      if (state === GenStateCompleted) {
+        if (method === "throw") {
+          throw arg;
+        }
+
+        // Be forgiving, per 25.3.3.3.3 of the spec:
+        // https://people.mozilla.org/~jorendorff/es6-draft.html#sec-generatorresume
+        return doneResult();
+      }
+
+      context.method = method;
+      context.arg = arg;
+
+      while (true) {
+        var delegate = context.delegate;
+        if (delegate) {
+          var delegateResult = maybeInvokeDelegate(delegate, context);
+          if (delegateResult) {
+            if (delegateResult === ContinueSentinel) continue;
+            return delegateResult;
+          }
+        }
+
+        if (context.method === "next") {
+          // Setting context._sent for legacy support of Babel's
+          // function.sent implementation.
+          context.sent = context._sent = context.arg;
+
+        } else if (context.method === "throw") {
+          if (state === GenStateSuspendedStart) {
+            state = GenStateCompleted;
+            throw context.arg;
+          }
+
+          context.dispatchException(context.arg);
+
+        } else if (context.method === "return") {
+          context.abrupt("return", context.arg);
+        }
+
+        state = GenStateExecuting;
+
+        var record = tryCatch(innerFn, self, context);
+        if (record.type === "normal") {
+          // If an exception is thrown from innerFn, we leave state ===
+          // GenStateExecuting and loop back for another invocation.
+          state = context.done
+            ? GenStateCompleted
+            : GenStateSuspendedYield;
+
+          if (record.arg === ContinueSentinel) {
+            continue;
+          }
+
+          return {
+            value: record.arg,
+            done: context.done
+          };
+
+        } else if (record.type === "throw") {
+          state = GenStateCompleted;
+          // Dispatch the exception by looping back around to the
+          // context.dispatchException(context.arg) call above.
+          context.method = "throw";
+          context.arg = record.arg;
+        }
+      }
+    };
+  }
+
+  // Call delegate.iterator[context.method](context.arg) and handle the
+  // result, either by returning a { value, done } result from the
+  // delegate iterator, or by modifying context.method and context.arg,
+  // setting context.delegate to null, and returning the ContinueSentinel.
+  function maybeInvokeDelegate(delegate, context) {
+    var method = delegate.iterator[context.method];
+    if (method === undefined) {
+      // A .throw or .return when the delegate iterator has no .throw
+      // method always terminates the yield* loop.
+      context.delegate = null;
+
+      if (context.method === "throw") {
+        // Note: ["return"] must be used for ES3 parsing compatibility.
+        if (delegate.iterator["return"]) {
+          // If the delegate iterator has a return method, give it a
+          // chance to clean up.
+          context.method = "return";
+          context.arg = undefined;
+          maybeInvokeDelegate(delegate, context);
+
+          if (context.method === "throw") {
+            // If maybeInvokeDelegate(context) changed context.method from
+            // "return" to "throw", let that override the TypeError below.
+            return ContinueSentinel;
+          }
+        }
+
+        context.method = "throw";
+        context.arg = new TypeError(
+          "The iterator does not provide a 'throw' method");
+      }
+
+      return ContinueSentinel;
+    }
+
+    var record = tryCatch(method, delegate.iterator, context.arg);
+
+    if (record.type === "throw") {
+      context.method = "throw";
+      context.arg = record.arg;
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    var info = record.arg;
+
+    if (! info) {
+      context.method = "throw";
+      context.arg = new TypeError("iterator result is not an object");
+      context.delegate = null;
+      return ContinueSentinel;
+    }
+
+    if (info.done) {
+      // Assign the result of the finished delegate to the temporary
+      // variable specified by delegate.resultName (see delegateYield).
+      context[delegate.resultName] = info.value;
+
+      // Resume execution at the desired location (see delegateYield).
+      context.next = delegate.nextLoc;
+
+      // If context.method was "throw" but the delegate handled the
+      // exception, let the outer generator proceed normally. If
+      // context.method was "next", forget context.arg since it has been
+      // "consumed" by the delegate iterator. If context.method was
+      // "return", allow the original .return call to continue in the
+      // outer generator.
+      if (context.method !== "return") {
+        context.method = "next";
+        context.arg = undefined;
+      }
+
+    } else {
+      // Re-yield the result returned by the delegate method.
+      return info;
+    }
+
+    // The delegate iterator is finished, so forget it and continue with
+    // the outer generator.
+    context.delegate = null;
+    return ContinueSentinel;
+  }
+
+  // Define Generator.prototype.{next,throw,return} in terms of the
+  // unified ._invoke helper method.
+  defineIteratorMethods(Gp);
+
+  Gp[toStringTagSymbol] = "Generator";
+
+  // A Generator should always return itself as the iterator object when the
+  // @@iterator function is called on it. Some browsers' implementations of the
+  // iterator prototype chain incorrectly implement this, causing the Generator
+  // object to not be returned from this call. This ensures that doesn't happen.
+  // See https://github.com/facebook/regenerator/issues/274 for more details.
+  Gp[iteratorSymbol] = function() {
+    return this;
+  };
+
+  Gp.toString = function() {
+    return "[object Generator]";
+  };
+
+  function pushTryEntry(locs) {
+    var entry = { tryLoc: locs[0] };
+
+    if (1 in locs) {
+      entry.catchLoc = locs[1];
+    }
+
+    if (2 in locs) {
+      entry.finallyLoc = locs[2];
+      entry.afterLoc = locs[3];
+    }
+
+    this.tryEntries.push(entry);
+  }
+
+  function resetTryEntry(entry) {
+    var record = entry.completion || {};
+    record.type = "normal";
+    delete record.arg;
+    entry.completion = record;
+  }
+
+  function Context(tryLocsList) {
+    // The root entry object (effectively a try statement without a catch
+    // or a finally block) gives us a place to store values thrown from
+    // locations where there is no enclosing try statement.
+    this.tryEntries = [{ tryLoc: "root" }];
+    tryLocsList.forEach(pushTryEntry, this);
+    this.reset(true);
+  }
+
+  exports.keys = function(object) {
+    var keys = [];
+    for (var key in object) {
+      keys.push(key);
+    }
+    keys.reverse();
+
+    // Rather than returning an object with a next method, we keep
+    // things simple and return the next function itself.
+    return function next() {
+      while (keys.length) {
+        var key = keys.pop();
+        if (key in object) {
+          next.value = key;
+          next.done = false;
+          return next;
+        }
+      }
+
+      // To avoid creating an additional object, we just hang the .value
+      // and .done properties off the next function object itself. This
+      // also ensures that the minifier will not anonymize the function.
+      next.done = true;
+      return next;
+    };
+  };
+
+  function values(iterable) {
+    if (iterable) {
+      var iteratorMethod = iterable[iteratorSymbol];
+      if (iteratorMethod) {
+        return iteratorMethod.call(iterable);
+      }
+
+      if (typeof iterable.next === "function") {
+        return iterable;
+      }
+
+      if (!isNaN(iterable.length)) {
+        var i = -1, next = function next() {
+          while (++i < iterable.length) {
+            if (hasOwn.call(iterable, i)) {
+              next.value = iterable[i];
+              next.done = false;
+              return next;
+            }
+          }
+
+          next.value = undefined;
+          next.done = true;
+
+          return next;
+        };
+
+        return next.next = next;
+      }
+    }
+
+    // Return an iterator with no values.
+    return { next: doneResult };
+  }
+  exports.values = values;
+
+  function doneResult() {
+    return { value: undefined, done: true };
+  }
+
+  Context.prototype = {
+    constructor: Context,
+
+    reset: function(skipTempReset) {
+      this.prev = 0;
+      this.next = 0;
+      // Resetting context._sent for legacy support of Babel's
+      // function.sent implementation.
+      this.sent = this._sent = undefined;
+      this.done = false;
+      this.delegate = null;
+
+      this.method = "next";
+      this.arg = undefined;
+
+      this.tryEntries.forEach(resetTryEntry);
+
+      if (!skipTempReset) {
+        for (var name in this) {
+          // Not sure about the optimal order of these conditions:
+          if (name.charAt(0) === "t" &&
+              hasOwn.call(this, name) &&
+              !isNaN(+name.slice(1))) {
+            this[name] = undefined;
+          }
+        }
+      }
+    },
+
+    stop: function() {
+      this.done = true;
+
+      var rootEntry = this.tryEntries[0];
+      var rootRecord = rootEntry.completion;
+      if (rootRecord.type === "throw") {
+        throw rootRecord.arg;
+      }
+
+      return this.rval;
+    },
+
+    dispatchException: function(exception) {
+      if (this.done) {
+        throw exception;
+      }
+
+      var context = this;
+      function handle(loc, caught) {
+        record.type = "throw";
+        record.arg = exception;
+        context.next = loc;
+
+        if (caught) {
+          // If the dispatched exception was caught by a catch block,
+          // then let that catch block handle the exception normally.
+          context.method = "next";
+          context.arg = undefined;
+        }
+
+        return !! caught;
+      }
+
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        var record = entry.completion;
+
+        if (entry.tryLoc === "root") {
+          // Exception thrown outside of any try block that could handle
+          // it, so set the completion value of the entire function to
+          // throw the exception.
+          return handle("end");
+        }
+
+        if (entry.tryLoc <= this.prev) {
+          var hasCatch = hasOwn.call(entry, "catchLoc");
+          var hasFinally = hasOwn.call(entry, "finallyLoc");
+
+          if (hasCatch && hasFinally) {
+            if (this.prev < entry.catchLoc) {
+              return handle(entry.catchLoc, true);
+            } else if (this.prev < entry.finallyLoc) {
+              return handle(entry.finallyLoc);
+            }
+
+          } else if (hasCatch) {
+            if (this.prev < entry.catchLoc) {
+              return handle(entry.catchLoc, true);
+            }
+
+          } else if (hasFinally) {
+            if (this.prev < entry.finallyLoc) {
+              return handle(entry.finallyLoc);
+            }
+
+          } else {
+            throw new Error("try statement without catch or finally");
+          }
+        }
+      }
+    },
+
+    abrupt: function(type, arg) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc <= this.prev &&
+            hasOwn.call(entry, "finallyLoc") &&
+            this.prev < entry.finallyLoc) {
+          var finallyEntry = entry;
+          break;
+        }
+      }
+
+      if (finallyEntry &&
+          (type === "break" ||
+           type === "continue") &&
+          finallyEntry.tryLoc <= arg &&
+          arg <= finallyEntry.finallyLoc) {
+        // Ignore the finally entry if control is not jumping to a
+        // location outside the try/catch block.
+        finallyEntry = null;
+      }
+
+      var record = finallyEntry ? finallyEntry.completion : {};
+      record.type = type;
+      record.arg = arg;
+
+      if (finallyEntry) {
+        this.method = "next";
+        this.next = finallyEntry.finallyLoc;
+        return ContinueSentinel;
+      }
+
+      return this.complete(record);
+    },
+
+    complete: function(record, afterLoc) {
+      if (record.type === "throw") {
+        throw record.arg;
+      }
+
+      if (record.type === "break" ||
+          record.type === "continue") {
+        this.next = record.arg;
+      } else if (record.type === "return") {
+        this.rval = this.arg = record.arg;
+        this.method = "return";
+        this.next = "end";
+      } else if (record.type === "normal" && afterLoc) {
+        this.next = afterLoc;
+      }
+
+      return ContinueSentinel;
+    },
+
+    finish: function(finallyLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.finallyLoc === finallyLoc) {
+          this.complete(entry.completion, entry.afterLoc);
+          resetTryEntry(entry);
+          return ContinueSentinel;
+        }
+      }
+    },
+
+    "catch": function(tryLoc) {
+      for (var i = this.tryEntries.length - 1; i >= 0; --i) {
+        var entry = this.tryEntries[i];
+        if (entry.tryLoc === tryLoc) {
+          var record = entry.completion;
+          if (record.type === "throw") {
+            var thrown = record.arg;
+            resetTryEntry(entry);
+          }
+          return thrown;
+        }
+      }
+
+      // The context.catch method must only be called with a location
+      // argument that corresponds to a known catch block.
+      throw new Error("illegal catch attempt");
+    },
+
+    delegateYield: function(iterable, resultName, nextLoc) {
+      this.delegate = {
+        iterator: values(iterable),
+        resultName: resultName,
+        nextLoc: nextLoc
+      };
+
+      if (this.method === "next") {
+        // Deliberately forget the last sent value so that we don't
+        // accidentally pass it on to the delegate.
+        this.arg = undefined;
+      }
+
+      return ContinueSentinel;
+    }
+  };
+
+  // Regardless of whether this script is executing as a CommonJS module
+  // or not, return the runtime object so that we can declare the variable
+  // regeneratorRuntime in the outer scope, which allows this module to be
+  // injected easily by `bin/regenerator --include-runtime script.js`.
+  return exports;
+
+}(
+  // If this script is executing as a CommonJS module, use module.exports
+  // as the regeneratorRuntime namespace. Otherwise create a new empty
+  // object. Either way, the resulting object will be used to initialize
+  // the regeneratorRuntime variable at the top of this file.
+   true ? module.exports : undefined
+));
+
+try {
+  regeneratorRuntime = runtime;
+} catch (accidentalStrictMode) {
+  // This module should not be running in strict mode, so the above
+  // assignment should always work unless something is misconfigured. Just
+  // in case runtime.js accidentally runs in strict mode, we can escape
+  // strict mode using a global Function call. This could conceivably fail
+  // if a Content Security Policy forbids using Function, but in that case
+  // the proper solution is to fix the accidental strict mode problem. If
+  // you've misconfigured your bundler to force strict mode and applied a
+  // CSP to forbid Function, and you're not willing to fix either of those
+  // problems, please detail your unique predicament in a GitHub issue.
+  Function("r", "regeneratorRuntime = r")(runtime);
+}
+
+
+/***/ }),
+
 /***/ "./node_modules/setimmediate/setImmediate.js":
 /*!***************************************************!*\
   !*** ./node_modules/setimmediate/setImmediate.js ***!
@@ -20525,7 +21490,7 @@ var render = function() {
   return _c(
     "div",
     {
-      staticClass: "flex items-center justify-center flex",
+      staticClass: "flex items-center justify-center flex cursor-pointer",
       on: {
         click: function($event) {
           return _vm.$router.go(-1)
@@ -21094,152 +22059,242 @@ var render = function() {
     "div",
     {
       staticClass:
-        "fixed top-0 bottom-0 left-0 right-0 z-10 py-2 bg-gray-200 opacity-100"
+        "fixed top-0 bottom-0 left-0 right-0 z-10 bg-gray-200 opacity-100"
     },
     [
       _c(
         "div",
         { staticClass: "h-full" },
         [
-          _c("div", { staticClass: "border-b bg-white border-gray-400 px-1" }, [
-            _c(
-              "div",
-              { staticClass: "flex justify-start align-middle" },
-              [
-                _c("BackComponent", { staticClass: "w-12 h-12" }),
-                _vm._v(" "),
-                _c("div", [
-                  _c("p", { staticClass: "font-light text-xs" }, [
-                    _vm._v("Dokter di sekitar")
-                  ]),
+          _c(
+            "div",
+            { staticClass: "border-b bg-white border-gray-400 px-1 py-2" },
+            [
+              _c(
+                "div",
+                { staticClass: "flex align-middle" },
+                [
+                  _c("BackComponent", { staticClass: "w-12 h-12" }),
                   _vm._v(" "),
-                  _c(
+                  _vm.selectedSchedule == null
+                    ? _c("div", [
+                        _c("p", { staticClass: "font-light text-xs" }, [
+                          _vm._v("Dokter di sekitar")
+                        ]),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "flex items-center justify-center flex align-middle font-bold text-purple-800"
+                          },
+                          [
+                            _vm._v(
+                              "\n            Jakarta Selatan\n            "
+                            ),
+                            _c(
+                              "svg",
+                              {
+                                staticClass: "pl-2 w-12 f-12",
+                                attrs: { width: "12", height: "12" }
+                              },
+                              [
+                                _c("g", { attrs: { id: "surface1" } }, [
+                                  _c("path", {
+                                    staticStyle: {
+                                      stroke: "none",
+                                      "fill-rule": "nonzero",
+                                      fill: "rgb(0%,0%,0%)",
+                                      "fill-opacity": "1"
+                                    },
+                                    attrs: {
+                                      d:
+                                        "M 15.898438 3.683594 C 15.761719 3.554688 15.542969 3.554688 15.40625 3.683594 L 8 10.625 L 0.59375 3.683594 C 0.457031 3.554688 0.238281 3.554688 0.101562 3.683594 C -0.0351562 3.808594 -0.0351562 4.015625 0.101562 4.144531 L 7.753906 11.316406 C 7.824219 11.382812 7.910156 11.414062 8 11.414062 C 8.089844 11.414062 8.179688 11.382812 8.246094 11.316406 L 15.898438 4.144531 C 16.035156 4.015625 16.035156 3.808594 15.898438 3.683594 Z M 15.898438 3.683594 "
+                                    }
+                                  })
+                                ])
+                              ]
+                            )
+                          ]
+                        )
+                      ])
+                    : _c(
+                        "div",
+                        {
+                          staticClass:
+                            "flex justify-end w-full text-right align-middle content-end",
+                          attrs: { to: "#" }
+                        },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticClass:
+                                "flex items-center justify-center flex h-12 w-12 cursor-pointer"
+                            },
+                            [
+                              _c(
+                                "svg",
+                                {
+                                  staticClass: "object-center",
+                                  attrs: { width: "32", height: "32" }
+                                },
+                                [
+                                  _c("g", { attrs: { id: "surface1" } }, [
+                                    _c("path", {
+                                      attrs: {
+                                        d:
+                                          "M27 22c-1.411 0-2.685 0.586-3.594 1.526l-13.469-6.734c0.041-0.258 0.063-0.522 0.063-0.791s-0.022-0.534-0.063-0.791l13.469-6.734c0.909 0.94 2.183 1.526 3.594 1.526 2.761 0 5-2.239 5-5s-2.239-5-5-5-5 2.239-5 5c0 0.269 0.022 0.534 0.063 0.791l-13.469 6.734c-0.909-0.94-2.183-1.526-3.594-1.526-2.761 0-5 2.239-5 5s2.239 5 5 5c1.411 0 2.685-0.586 3.594-1.526l13.469 6.734c-0.041 0.258-0.063 0.522-0.063 0.791 0 2.761 2.239 5 5 5s5-2.239 5-5c0-2.761-2.239-5-5-5z"
+                                      }
+                                    })
+                                  ])
+                                ]
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                ],
+                1
+              ),
+              _vm._v(" "),
+              _vm.selectedSpecialist == null
+                ? _c(
+                    "div",
+                    { staticClass: "flex justify-start align-middle" },
+                    [
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "h-12 w-12 flex items-center justify-center"
+                        },
+                        [
+                          _c("svg", { attrs: { width: "16", height: "16" } }, [
+                            _c("g", { attrs: { id: "surface1" } }, [
+                              _c("path", {
+                                staticStyle: {
+                                  stroke: "none",
+                                  "fill-rule": "nonzero",
+                                  fill: "rgb(0%,0%,0%)",
+                                  "fill-opacity": "1"
+                                },
+                                attrs: {
+                                  d:
+                                    "M 16 15.292969 L 10.578125 9.871094 C 11.464844 8.824219 12 7.476562 12 6 C 12 2.691406 9.308594 0 6 0 C 2.691406 0 0 2.691406 0 6 C 0 9.308594 2.691406 12 6 12 C 7.476562 12 8.824219 11.464844 9.871094 10.578125 L 15.292969 16 C 15.292969 16 16 15.292969 16 15.292969 Z M 6 11 C 3.242188 11 1 8.757812 1 6 C 1 3.242188 3.242188 1 6 1 C 8.757812 1 11 3.242188 11 6 C 11 8.757812 8.757812 11 6 11 Z M 6 11 "
+                                }
+                              })
+                            ])
+                          ])
+                        ]
+                      ),
+                      _vm._v(" "),
+                      _c("input", {
+                        staticClass: "w-full",
+                        attrs: {
+                          type: "text",
+                          name: "searchDocter",
+                          id: "searchDocter",
+                          placeholder: "Cari nama dokter..."
+                        }
+                      })
+                    ]
+                  )
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.selectedSpecialist && _vm.selectedSchedule == null
+                ? _c(
                     "div",
                     {
                       staticClass:
-                        "flex items-center justify-center flex align-middle font-bold text-purple-800"
+                        "flex flex-wrap text-gray-800 px-2 text-sm h-full overflow-y-auto"
                     },
                     [
-                      _vm._v("\n            Jakarta Selatan\n            "),
                       _c(
-                        "svg",
+                        "div",
                         {
-                          staticClass: "pl-2 w-12 f-12",
-                          attrs: { width: "12", height: "12" }
+                          staticClass:
+                            "flex-none rounded-full py-2 px-4 border-2 m-2 hover:bg-blue-200 cursor-pointer",
+                          class:
+                            _vm.filterMain == "filter-none" ? "bg-red-200" : "",
+                          attrs: { id: "filter-none" },
+                          on: { click: _vm.selectfilterMain }
                         },
-                        [
-                          _c("g", { attrs: { id: "surface1" } }, [
-                            _c("path", {
-                              staticStyle: {
-                                stroke: "none",
-                                "fill-rule": "nonzero",
-                                fill: "rgb(0%,0%,0%)",
-                                "fill-opacity": "1"
-                              },
-                              attrs: {
-                                d:
-                                  "M 15.898438 3.683594 C 15.761719 3.554688 15.542969 3.554688 15.40625 3.683594 L 8 10.625 L 0.59375 3.683594 C 0.457031 3.554688 0.238281 3.554688 0.101562 3.683594 C -0.0351562 3.808594 -0.0351562 4.015625 0.101562 4.144531 L 7.753906 11.316406 C 7.824219 11.382812 7.910156 11.414062 8 11.414062 C 8.089844 11.414062 8.179688 11.382812 8.246094 11.316406 L 15.898438 4.144531 C 16.035156 4.015625 16.035156 3.808594 15.898438 3.683594 Z M 15.898438 3.683594 "
-                              }
-                            })
-                          ])
-                        ]
+                        [_vm._v("Semua")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "flex-none rounded-full py-2 px-4 border-2 m-2 hover:bg-blue-200 cursor-pointer",
+                          class:
+                            _vm.filterMain == "filter-today"
+                              ? "bg-red-200"
+                              : "",
+                          attrs: { id: "filter-today" },
+                          on: { click: _vm.selectfilterMain }
+                        },
+                        [_vm._v("Praktik hari ini")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "div",
+                        {
+                          staticClass:
+                            "flex-none rounded-full py-2 px-4 border-2 m-2 hover:bg-blue-200 cursor-pointer",
+                          class:
+                            _vm.filterMain == "filter-online"
+                              ? "bg-red-200"
+                              : "",
+                          attrs: { id: "filter-online" },
+                          on: { click: _vm.selectfilterMain }
+                        },
+                        [_vm._v("Booking online")]
                       )
                     ]
                   )
-                ])
-              ],
-              1
-            ),
-            _vm._v(" "),
-            _vm.selectedSpecialist == null
-              ? _c("div", { staticClass: "flex justify-start align-middle" }, [
-                  _c(
-                    "div",
-                    {
-                      staticClass: "h-12 w-12 flex items-center justify-center"
-                    },
-                    [
-                      _c("svg", { attrs: { width: "16", height: "16" } }, [
-                        _c("g", { attrs: { id: "surface1" } }, [
-                          _c("path", {
-                            staticStyle: {
-                              stroke: "none",
-                              "fill-rule": "nonzero",
-                              fill: "rgb(0%,0%,0%)",
-                              "fill-opacity": "1"
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.doctor
+                ? _c("div", [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "align-middle items-center content-center flex flex justify-between"
+                      },
+                      [
+                        _c("div", { staticClass: "w-3/5" }, [
+                          _c(
+                            "p",
+                            {
+                              staticClass: "text-purple-800 font-bold text-xl"
                             },
-                            attrs: {
-                              d:
-                                "M 16 15.292969 L 10.578125 9.871094 C 11.464844 8.824219 12 7.476562 12 6 C 12 2.691406 9.308594 0 6 0 C 2.691406 0 0 2.691406 0 6 C 0 9.308594 2.691406 12 6 12 C 7.476562 12 8.824219 11.464844 9.871094 10.578125 L 15.292969 16 C 15.292969 16 16 15.292969 16 15.292969 Z M 6 11 C 3.242188 11 1 8.757812 1 6 C 1 3.242188 3.242188 1 6 1 C 8.757812 1 11 3.242188 11 6 C 11 8.757812 8.757812 11 6 11 Z M 6 11 "
-                            }
-                          })
-                        ])
-                      ])
-                    ]
-                  ),
-                  _vm._v(" "),
-                  _c("input", {
-                    staticClass: "w-full",
-                    attrs: {
-                      type: "text",
-                      name: "searchDocter",
-                      id: "searchDocter",
-                      placeholder: "Cari nama dokter..."
-                    }
-                  })
-                ])
-              : _vm._e(),
-            _vm._v(" "),
-            _vm.selectedSpecialist
-              ? _c(
-                  "div",
-                  {
-                    staticClass:
-                      "flex flex-wrap text-gray-800 px-2 text-sm h-full overflow-y-auto"
-                  },
-                  [
-                    _c(
-                      "div",
-                      {
-                        staticClass:
-                          "flex-none rounded-full py-2 px-4 border-2 m-2 hover:bg-blue-200 cursor-pointer",
-                        class:
-                          _vm.filterMain == "filter-none" ? "bg-red-200" : "",
-                        attrs: { id: "filter-none" },
-                        on: { click: _vm.selectfilterMain }
-                      },
-                      [_vm._v("Semua")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass:
-                          "flex-none rounded-full py-2 px-4 border-2 m-2 hover:bg-blue-200 cursor-pointer",
-                        class:
-                          _vm.filterMain == "filter-today" ? "bg-red-200" : "",
-                        attrs: { id: "filter-today" },
-                        on: { click: _vm.selectfilterMain }
-                      },
-                      [_vm._v("Praktik hari ini")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "div",
-                      {
-                        staticClass:
-                          "flex-none rounded-full py-2 px-4 border-2 m-2 hover:bg-blue-200 cursor-pointer",
-                        class:
-                          _vm.filterMain == "filter-online" ? "bg-red-200" : "",
-                        attrs: { id: "filter-online" },
-                        on: { click: _vm.selectfilterMain }
-                      },
-                      [_vm._v("Booking online")]
+                            [_vm._v(_vm._s(_vm.doctor.name))]
+                          ),
+                          _vm._v(" "),
+                          _c("p", { staticClass: "text-gray-600 font-thin" }, [
+                            _vm._v(
+                              _vm._s(
+                                _vm.doctor.gender == "f"
+                                  ? "Wanita"
+                                  : "Laki laki"
+                              )
+                            )
+                          ])
+                        ]),
+                        _vm._v(" "),
+                        _c("div", {
+                          staticClass:
+                            "rounded-full w-24 h-24 mx-4 flex items-center justify-center border border-red-400 bg-red-400"
+                        })
+                      ]
                     )
-                  ]
-                )
-              : _vm._e()
-          ]),
+                  ])
+                : _vm._e()
+            ]
+          ),
           _vm._v(" "),
           _vm.loading
             ? _c(
@@ -21318,10 +22373,10 @@ var render = function() {
                 ],
                 2
               )
-            : _vm.schedules != null
+            : _vm.schedules != null && _vm.selectedSchedule == null
             ? _c(
                 "div",
-                { staticClass: "h-full overflow-y-auto  pb-20" },
+                { staticClass: "h-full overflow-y-auto pb-20" },
                 [
                   _vm._l(_vm.schedules, function(schedule) {
                     return _c(
@@ -21490,7 +22545,8 @@ var render = function() {
                               "div",
                               {
                                 staticClass:
-                                  "flex w-full text-pink-600 text-center h-8 align-middle justify-center items-center bg-gray-200 py-2 mt-2 cursor-pointer hover:bg-blue-200 focus:bg-red-400"
+                                  "flex w-full text-pink-600 text-center h-8 align-middle justify-center items-center bg-gray-200 py-2 mt-2 cursor-pointer hover:bg-blue-200 focus:bg-red-400",
+                                on: { click: _vm.selectSchedule }
                               },
                               [_vm._v("Bisa buat janji online")]
                             )
@@ -21499,15 +22555,362 @@ var render = function() {
                     )
                   }),
                   _vm._v(" "),
+                  _vm.schedules.length == 0
+                    ? _c(
+                        "div",
+                        {
+                          staticClass:
+                            "flex justify-center content-center w-full h-full items-center"
+                        },
+                        [
+                          _c(
+                            "div",
+                            {
+                              staticClass: "items-center font-mono text-center"
+                            },
+                            [
+                              _vm._v(
+                                "Tidak terdapat jadwal pada hasil pencarian, silahkan ubah filter atau lokasi."
+                              )
+                            ]
+                          )
+                        ]
+                      )
+                    : _vm._e(),
+                  _vm._v(" "),
                   _c("div", { staticClass: "bg-gray-200 text-gray-200 h-32" }, [
                     _vm._v("Spacer")
                   ])
                 ],
                 2
               )
+            : _vm.doctor
+            ? _c("div", { staticClass: "h-full overflow-y-auto pb-20" }, [
+                _c(
+                  "p",
+                  { staticClass: "p-2 text-gray-800 font-semibold mt-4" },
+                  [_vm._v("Jadwal Praktik Terdekat")]
+                ),
+                _vm._v(" "),
+                _c(
+                  "div",
+                  { staticClass: "m-4 border-b bg-white border-gray-400 p-2" },
+                  [
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "align-middle items-center content-center flex flex justify-between"
+                      },
+                      [
+                        _c("div", [
+                          _c("p", { staticClass: "font-semibold" }, [
+                            _vm._v(_vm._s(_vm.selectedSchedule.place.name))
+                          ]),
+                          _vm._v(" "),
+                          _c("p", { staticClass: "text-gray-600" }, [
+                            _vm._v(_vm._s(_vm.selectedSchedule.readableDate))
+                          ]),
+                          _vm._v(" "),
+                          _c("p", { staticClass: "text-gray-600" }, [
+                            _vm._v(
+                              _vm._s(_vm.selectedSchedule.start) +
+                                " - " +
+                                _vm._s(_vm.selectedSchedule.end)
+                            )
+                          ])
+                        ])
+                      ]
+                    ),
+                    _vm._v(" "),
+                    _vm.selectedSchedule.canOnlineBook
+                      ? _c(
+                          "router-link",
+                          {
+                            staticClass:
+                              "flex w-full text-white font-bold text-center h-12 align-middle justify-center items-center bg-green-500 uppercase py-2 my-2 cursor-pointer hover:bg-blue-200 focus:bg-red-400",
+                            attrs: { to: "/" }
+                          },
+                          [_vm._v("Buat Janji")]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
+                    _c(
+                      "div",
+                      {
+                        staticClass:
+                          "w-full mt-8 border-gray-400 border-t flex text-center h-12 align-middle justify-between items-center cursor-pointer text-green-400"
+                      },
+                      [
+                        _c("p", [_vm._v("Lihat semua")]),
+                        _vm._v(" "),
+                        _c(
+                          "svg",
+                          {
+                            staticClass: "mr-4 flex justify-center",
+                            attrs: { width: "16", height: "16" }
+                          },
+                          [
+                            _c("g", { attrs: { id: "surface1" } }, [
+                              _c("path", {
+                                staticStyle: {
+                                  stroke: "none",
+                                  "fill-rule": "nonzero",
+                                  fill: "rgb(0%,0%,0%)",
+                                  "fill-opacity": "1"
+                                },
+                                attrs: {
+                                  d:
+                                    "M 11.90625 7.769531 L 4.574219 0.101562 C 4.445312 -0.03125 4.234375 -0.0351562 4.101562 0.09375 C 3.96875 0.21875 3.964844 0.429688 4.09375 0.5625 L 11.207031 8 L 4.09375 15.4375 C 3.964844 15.570312 3.96875 15.78125 4.101562 15.90625 C 4.167969 15.96875 4.25 16 4.332031 16 C 4.421875 16 4.507812 15.964844 4.574219 15.898438 L 11.90625 8.230469 C 12.03125 8.101562 12.03125 7.898438 11.90625 7.769531 Z M 11.90625 7.769531 "
+                                }
+                              })
+                            ])
+                          ]
+                        )
+                      ]
+                    )
+                  ],
+                  1
+                ),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  { staticClass: "p-2 text-gray-800 font-semibold mt-4" },
+                  [_vm._v("Lokasi Praktik")]
+                ),
+                _vm._v(" "),
+                _vm.places
+                  ? _c(
+                      "div",
+                      {
+                        staticClass: "m-4 border-b bg-white border-gray-400 p-2"
+                      },
+                      [
+                        _vm._l(_vm.places, function(place) {
+                          return _c(
+                            "div",
+                            {
+                              key: place.id,
+                              staticClass:
+                                "border-b p-2 pr-4 border-gray-400 flex justify-between items-center cursor-pointer w-full"
+                            },
+                            [
+                              _c("div", { staticClass: "w-5/6" }, [
+                                _c(
+                                  "p",
+                                  {
+                                    staticClass: "text-purple-800 font-semibold"
+                                  },
+                                  [_vm._v(_vm._s(place.name))]
+                                ),
+                                _vm._v(" "),
+                                _c(
+                                  "p",
+                                  { staticClass: "text-gray-600 text-xs" },
+                                  [_vm._v(_vm._s(place.address))]
+                                )
+                              ]),
+                              _vm._v(" "),
+                              _c(
+                                "svg",
+                                { attrs: { width: "16", height: "16" } },
+                                [
+                                  _c("g", { attrs: { id: "surface1" } }, [
+                                    _c("path", {
+                                      staticStyle: {
+                                        stroke: "none",
+                                        "fill-rule": "nonzero",
+                                        fill: "rgb(0%,0%,0%)",
+                                        "fill-opacity": "1"
+                                      },
+                                      attrs: {
+                                        d:
+                                          "M 11.90625 7.769531 L 4.574219 0.101562 C 4.445312 -0.03125 4.234375 -0.0351562 4.101562 0.09375 C 3.96875 0.21875 3.964844 0.429688 4.09375 0.5625 L 11.207031 8 L 4.09375 15.4375 C 3.964844 15.570312 3.96875 15.78125 4.101562 15.90625 C 4.167969 15.96875 4.25 16 4.332031 16 C 4.421875 16 4.507812 15.964844 4.574219 15.898438 L 11.90625 8.230469 C 12.03125 8.101562 12.03125 7.898438 11.90625 7.769531 Z M 11.90625 7.769531 "
+                                      }
+                                    })
+                                  ])
+                                ]
+                              )
+                            ]
+                          )
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "w-full border-gray-400 flex text-center h-12 align-middle justify-between items-center cursor-pointer text-green-400"
+                          },
+                          [
+                            _c("p", [_vm._v("Lihat semua")]),
+                            _vm._v(" "),
+                            _c(
+                              "svg",
+                              {
+                                staticClass: "mr-4 flex justify-center",
+                                attrs: { width: "16", height: "16" }
+                              },
+                              [
+                                _c("g", { attrs: { id: "surface1" } }, [
+                                  _c("path", {
+                                    staticStyle: {
+                                      stroke: "none",
+                                      "fill-rule": "nonzero",
+                                      fill: "rgb(0%,0%,0%)",
+                                      "fill-opacity": "1"
+                                    },
+                                    attrs: {
+                                      d:
+                                        "M 11.90625 7.769531 L 4.574219 0.101562 C 4.445312 -0.03125 4.234375 -0.0351562 4.101562 0.09375 C 3.96875 0.21875 3.964844 0.429688 4.09375 0.5625 L 11.207031 8 L 4.09375 15.4375 C 3.964844 15.570312 3.96875 15.78125 4.101562 15.90625 C 4.167969 15.96875 4.25 16 4.332031 16 C 4.421875 16 4.507812 15.964844 4.574219 15.898438 L 11.90625 8.230469 C 12.03125 8.101562 12.03125 7.898438 11.90625 7.769531 Z M 11.90625 7.769531 "
+                                    }
+                                  })
+                                ])
+                              ]
+                            )
+                          ]
+                        )
+                      ],
+                      2
+                    )
+                  : _c("div", [_vm._v("Tidak ada lokasi praktik")]),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  { staticClass: "p-2 text-gray-800 font-semibold mt-4" },
+                  [_vm._v("Keahlian")]
+                ),
+                _vm._v(" "),
+                _vm.specialists
+                  ? _c(
+                      "div",
+                      {
+                        staticClass: "m-4 border-b bg-white border-gray-400 p-2"
+                      },
+                      [
+                        _vm._l(_vm.specialists, function(specialist) {
+                          return _c(
+                            "div",
+                            {
+                              key: specialist.id,
+                              staticClass:
+                                "border-b p-2 pr-4 border-gray-400 flex justify-between items-center w-full"
+                            },
+                            [_c("p", [_vm._v(_vm._s(specialist.subname))])]
+                          )
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "w-full border-gray-400 flex text-center h-12 align-middle justify-between items-center cursor-pointer text-green-400"
+                          },
+                          [
+                            _c("p", [_vm._v("Lihat semua")]),
+                            _vm._v(" "),
+                            _c(
+                              "svg",
+                              {
+                                staticClass: "mr-4 flex justify-center",
+                                attrs: { width: "16", height: "16" }
+                              },
+                              [
+                                _c("g", { attrs: { id: "surface1" } }, [
+                                  _c("path", {
+                                    staticStyle: {
+                                      stroke: "none",
+                                      "fill-rule": "nonzero",
+                                      fill: "rgb(0%,0%,0%)",
+                                      "fill-opacity": "1"
+                                    },
+                                    attrs: {
+                                      d:
+                                        "M 11.90625 7.769531 L 4.574219 0.101562 C 4.445312 -0.03125 4.234375 -0.0351562 4.101562 0.09375 C 3.96875 0.21875 3.964844 0.429688 4.09375 0.5625 L 11.207031 8 L 4.09375 15.4375 C 3.964844 15.570312 3.96875 15.78125 4.101562 15.90625 C 4.167969 15.96875 4.25 16 4.332031 16 C 4.421875 16 4.507812 15.964844 4.574219 15.898438 L 11.90625 8.230469 C 12.03125 8.101562 12.03125 7.898438 11.90625 7.769531 Z M 11.90625 7.769531 "
+                                    }
+                                  })
+                                ])
+                              ]
+                            )
+                          ]
+                        )
+                      ],
+                      2
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c(
+                  "p",
+                  { staticClass: "p-2 text-gray-800 font-semibold mt-4" },
+                  [_vm._v("Penyakit Terkait")]
+                ),
+                _vm._v(" "),
+                _vm.diseases
+                  ? _c(
+                      "div",
+                      {
+                        staticClass: "m-4 border-b bg-white border-gray-400 p-2"
+                      },
+                      [
+                        _vm._l(_vm.diseases, function(ill) {
+                          return _c(
+                            "div",
+                            {
+                              key: ill.id,
+                              staticClass:
+                                "border-b p-2 pr-4 border-gray-400 flex justify-between items-center w-full"
+                            },
+                            [_c("p", [_vm._v(_vm._s(ill.name))])]
+                          )
+                        }),
+                        _vm._v(" "),
+                        _c(
+                          "div",
+                          {
+                            staticClass:
+                              "w-full border-gray-400 flex text-center h-12 align-middle justify-between items-center cursor-pointer text-green-400"
+                          },
+                          [
+                            _c("p", [_vm._v("Lihat semua")]),
+                            _vm._v(" "),
+                            _c(
+                              "svg",
+                              {
+                                staticClass: "mr-4 flex justify-center",
+                                attrs: { width: "16", height: "16" }
+                              },
+                              [
+                                _c("g", { attrs: { id: "surface1" } }, [
+                                  _c("path", {
+                                    staticStyle: {
+                                      stroke: "none",
+                                      "fill-rule": "nonzero",
+                                      fill: "rgb(0%,0%,0%)",
+                                      "fill-opacity": "1"
+                                    },
+                                    attrs: {
+                                      d:
+                                        "M 11.90625 7.769531 L 4.574219 0.101562 C 4.445312 -0.03125 4.234375 -0.0351562 4.101562 0.09375 C 3.96875 0.21875 3.964844 0.429688 4.09375 0.5625 L 11.207031 8 L 4.09375 15.4375 C 3.964844 15.570312 3.96875 15.78125 4.101562 15.90625 C 4.167969 15.96875 4.25 16 4.332031 16 C 4.421875 16 4.507812 15.964844 4.574219 15.898438 L 11.90625 8.230469 C 12.03125 8.101562 12.03125 7.898438 11.90625 7.769531 Z M 11.90625 7.769531 "
+                                    }
+                                  })
+                                ])
+                              ]
+                            )
+                          ]
+                        )
+                      ],
+                      2
+                    )
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("div", { staticClass: "bg-gray-200 text-gray-200 h-32" }, [
+                  _vm._v("Spacer")
+                ])
+              ])
             : _vm._e(),
           _vm._v(" "),
-          _vm.selectedSpecialist ? _c("FilterNavigation") : _vm._e()
+          _vm.selectedSpecialist && _vm.selectedSchedule == null
+            ? _c("FilterNavigation")
+            : _vm._e()
         ],
         1
       )
@@ -21559,71 +22962,54 @@ var render = function() {
                 "svg",
                 {
                   staticClass: "inline-block mb-1",
-                  attrs: { width: "25", height: "25", viewBox: "0 0 42 42" }
+                  attrs: { width: "25", height: "25" }
                 },
                 [
                   _c(
                     "g",
                     {
                       attrs: {
-                        stroke: "none",
-                        "stroke-width": "1",
-                        fill: "none",
-                        "fill-rule": "evenodd"
+                        xmlns: "http://www.w3.org/2000/svg",
+                        id: "surface1"
                       }
                     },
                     [
                       _c("path", {
+                        staticStyle: {
+                          stroke: "none",
+                          "fill-rule": "nonzero",
+                          fill: "rgb(0%,0%,0%)",
+                          "fill-opacity": "1"
+                        },
                         attrs: {
                           d:
-                            "M21.0847458,3.38674884 C17.8305085,7.08474576 17.8305085,10.7827427 21.0847458,14.4807396 C24.3389831,18.1787365 24.3389831,22.5701079 21.0847458,27.6548536 L21.0847458,42 L8.06779661,41.3066256 L6,38.5331279 L6,26.2681048 L6,17.2542373 L8.88135593,12.4006163 L21.0847458,2 L21.0847458,3.38674884 Z",
-                          fill: "currentColor",
-                          "fill-opacity": "0.1"
+                            "M 21.796875 3.90625 C 21.445312 2.109375 19.84375 0.78125 17.96875 0.78125 C 16.09375 0.78125 14.492188 2.109375 14.140625 3.90625 L 0 3.90625 L 0 5.46875 L 14.140625 5.46875 C 14.492188 7.265625 16.09375 8.59375 17.96875 8.59375 C 19.84375 8.59375 21.445312 7.265625 21.796875 5.46875 L 25 5.46875 L 25 3.90625 Z M 17.96875 7.03125 C 16.679688 7.03125 15.625 5.976562 15.625 4.6875 C 15.625 3.398438 16.679688 2.34375 17.96875 2.34375 C 19.257812 2.34375 20.3125 3.398438 20.3125 4.6875 C 20.3125 5.976562 19.257812 7.03125 17.96875 7.03125 Z M 17.96875 7.03125 "
                         }
                       }),
                       _vm._v(" "),
                       _c("path", {
+                        staticStyle: {
+                          stroke: "none",
+                          "fill-rule": "nonzero",
+                          fill: "rgb(0%,0%,0%)",
+                          "fill-opacity": "1"
+                        },
                         attrs: {
                           d:
-                            "M11,8 L33,8 L11,8 Z M39,17 L39,36 C39,39.3137085 36.3137085,42 33,42 L11,42 C7.6862915,42 5,39.3137085 5,36 L5,17 L7,17 L7,36 C7,38.209139 8.790861,40 11,40 L33,40 C35.209139,40 37,38.209139 37,36 L37,17 L39,17 Z",
-                          fill: "currentColor"
+                            "M 6.640625 8.59375 C 4.765625 8.59375 3.164062 9.921875 2.8125 11.71875 L 0 11.71875 L 0 13.28125 L 2.8125 13.28125 C 3.164062 15.078125 4.765625 16.40625 6.640625 16.40625 C 8.515625 16.40625 10.117188 15.078125 10.46875 13.28125 L 25 13.28125 L 25 11.71875 L 10.46875 11.71875 C 10.117188 9.921875 8.515625 8.59375 6.640625 8.59375 Z M 6.640625 14.84375 C 5.351562 14.84375 4.296875 13.789062 4.296875 12.5 C 4.296875 11.210938 5.351562 10.15625 6.640625 10.15625 C 7.929688 10.15625 8.984375 11.210938 8.984375 12.5 C 8.984375 13.789062 7.929688 14.84375 6.640625 14.84375 Z M 6.640625 14.84375 "
                         }
                       }),
                       _vm._v(" "),
                       _c("path", {
+                        staticStyle: {
+                          stroke: "none",
+                          "fill-rule": "nonzero",
+                          fill: "rgb(0%,0%,0%)",
+                          "fill-opacity": "1"
+                        },
                         attrs: {
                           d:
-                            "M22,27 C25.3137085,27 28,29.6862915 28,33 L28,41 L16,41 L16,33 C16,29.6862915 18.6862915,27 22,27 Z",
-                          stroke: "currentColor",
-                          "stroke-width": "2",
-                          fill: "currentColor",
-                          "fill-opacity": "0.1"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("rect", {
-                        attrs: {
-                          fill: "currentColor",
-                          transform:
-                            "translate(32.000000, 11.313708) scale(-1, 1) rotate(-45.000000) translate(-32.000000, -11.313708) ",
-                          x: "17",
-                          y: "10.3137085",
-                          width: "30",
-                          height: "2",
-                          rx: "1"
-                        }
-                      }),
-                      _vm._v(" "),
-                      _c("rect", {
-                        attrs: {
-                          fill: "currentColor",
-                          transform:
-                            "translate(12.000000, 11.313708) rotate(-45.000000) translate(-12.000000, -11.313708) ",
-                          x: "-3",
-                          y: "10.3137085",
-                          width: "30",
-                          height: "2",
-                          rx: "1"
+                            "M 15.234375 16.40625 C 13.359375 16.40625 11.757812 17.734375 11.40625 19.53125 L 0 19.53125 L 0 21.09375 L 11.40625 21.09375 C 11.757812 22.890625 13.359375 24.21875 15.234375 24.21875 C 17.109375 24.21875 18.710938 22.890625 19.0625 21.09375 L 25 21.09375 L 25 19.53125 L 19.0625 19.53125 C 18.710938 17.734375 17.109375 16.40625 15.234375 16.40625 Z M 15.234375 22.65625 C 13.945312 22.65625 12.890625 21.601562 12.890625 20.3125 C 12.890625 19.023438 13.945312 17.96875 15.234375 17.96875 C 16.523438 17.96875 17.578125 19.023438 17.578125 20.3125 C 17.578125 21.601562 16.523438 22.65625 15.234375 22.65625 Z M 15.234375 22.65625 "
                         }
                       })
                     ]
@@ -21652,202 +23038,42 @@ var render = function() {
                   attrs: { width: "25", height: "25" }
                 },
                 [
-                  _c("g", { attrs: { id: "surface1" } }, [
-                    _c("path", {
-                      staticStyle: {
-                        stroke: "none",
-                        "fill-rule": "nonzero",
-                        fill: "rgb(0%,0%,0%)",
-                        "fill-opacity": "1"
-                      },
+                  _c(
+                    "g",
+                    {
                       attrs: {
-                        d:
-                          "M 22.070312 1.953125 L 20.898438 1.953125 L 20.898438 0 L 18.945312 0 L 18.945312 1.953125 L 6.054688 1.953125 L 6.054688 0 L 4.101562 0 L 4.101562 1.953125 L 2.929688 1.953125 C 1.3125 1.953125 0 3.265625 0 4.882812 L 0 22.070312 C 0 23.6875 1.3125 25 2.929688 25 L 22.070312 25 C 23.6875 25 25 23.6875 25 22.070312 L 25 4.882812 C 25 3.265625 23.6875 1.953125 22.070312 1.953125 Z M 23.046875 22.070312 C 23.046875 22.609375 22.609375 23.046875 22.070312 23.046875 L 2.929688 23.046875 C 2.390625 23.046875 1.953125 22.609375 1.953125 22.070312 L 1.953125 9.179688 L 23.046875 9.179688 Z M 23.046875 7.226562 L 1.953125 7.226562 L 1.953125 4.882812 C 1.953125 4.34375 2.390625 3.90625 2.929688 3.90625 L 4.101562 3.90625 L 4.101562 5.859375 L 6.054688 5.859375 L 6.054688 3.90625 L 18.945312 3.90625 L 18.945312 5.859375 L 20.898438 5.859375 L 20.898438 3.90625 L 22.070312 3.90625 C 22.609375 3.90625 23.046875 4.34375 23.046875 4.882812 Z M 23.046875 7.226562 "
+                        xmlns: "http://www.w3.org/2000/svg",
+                        id: "surface1"
                       }
-                    }),
-                    _vm._v(" "),
-                    _c("path", {
-                      staticStyle: {
-                        stroke: "none",
-                        "fill-rule": "nonzero",
-                        fill: "rgb(0%,0%,0%)",
-                        "fill-opacity": "1"
-                      },
-                      attrs: {
-                        d:
-                          "M 3.710938 11.230469 L 5.664062 11.230469 L 5.664062 13.183594 L 3.710938 13.183594 Z M 3.710938 11.230469 "
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("path", {
-                      staticStyle: {
-                        stroke: "none",
-                        "fill-rule": "nonzero",
-                        fill: "rgb(0%,0%,0%)",
-                        "fill-opacity": "1"
-                      },
-                      attrs: {
-                        d:
-                          "M 7.617188 11.230469 L 9.570312 11.230469 L 9.570312 13.183594 L 7.617188 13.183594 Z M 7.617188 11.230469 "
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("path", {
-                      staticStyle: {
-                        stroke: "none",
-                        "fill-rule": "nonzero",
-                        fill: "rgb(0%,0%,0%)",
-                        "fill-opacity": "1"
-                      },
-                      attrs: {
-                        d:
-                          "M 11.523438 11.230469 L 13.476562 11.230469 L 13.476562 13.183594 L 11.523438 13.183594 Z M 11.523438 11.230469 "
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("path", {
-                      staticStyle: {
-                        stroke: "none",
-                        "fill-rule": "nonzero",
-                        fill: "rgb(0%,0%,0%)",
-                        "fill-opacity": "1"
-                      },
-                      attrs: {
-                        d:
-                          "M 15.429688 11.230469 L 17.382812 11.230469 L 17.382812 13.183594 L 15.429688 13.183594 Z M 15.429688 11.230469 "
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("path", {
-                      staticStyle: {
-                        stroke: "none",
-                        "fill-rule": "nonzero",
-                        fill: "rgb(0%,0%,0%)",
-                        "fill-opacity": "1"
-                      },
-                      attrs: {
-                        d:
-                          "M 19.335938 11.230469 L 21.289062 11.230469 L 21.289062 13.183594 L 19.335938 13.183594 Z M 19.335938 11.230469 "
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("path", {
-                      staticStyle: {
-                        stroke: "none",
-                        "fill-rule": "nonzero",
-                        fill: "rgb(0%,0%,0%)",
-                        "fill-opacity": "1"
-                      },
-                      attrs: {
-                        d:
-                          "M 3.710938 15.136719 L 5.664062 15.136719 L 5.664062 17.089844 L 3.710938 17.089844 Z M 3.710938 15.136719 "
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("path", {
-                      staticStyle: {
-                        stroke: "none",
-                        "fill-rule": "nonzero",
-                        fill: "rgb(0%,0%,0%)",
-                        "fill-opacity": "1"
-                      },
-                      attrs: {
-                        d:
-                          "M 7.617188 15.136719 L 9.570312 15.136719 L 9.570312 17.089844 L 7.617188 17.089844 Z M 7.617188 15.136719 "
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("path", {
-                      staticStyle: {
-                        stroke: "none",
-                        "fill-rule": "nonzero",
-                        fill: "rgb(0%,0%,0%)",
-                        "fill-opacity": "1"
-                      },
-                      attrs: {
-                        d:
-                          "M 11.523438 15.136719 L 13.476562 15.136719 L 13.476562 17.089844 L 11.523438 17.089844 Z M 11.523438 15.136719 "
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("path", {
-                      staticStyle: {
-                        stroke: "none",
-                        "fill-rule": "nonzero",
-                        fill: "rgb(0%,0%,0%)",
-                        "fill-opacity": "1"
-                      },
-                      attrs: {
-                        d:
-                          "M 15.429688 15.136719 L 17.382812 15.136719 L 17.382812 17.089844 L 15.429688 17.089844 Z M 15.429688 15.136719 "
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("path", {
-                      staticStyle: {
-                        stroke: "none",
-                        "fill-rule": "nonzero",
-                        fill: "rgb(0%,0%,0%)",
-                        "fill-opacity": "1"
-                      },
-                      attrs: {
-                        d:
-                          "M 3.710938 19.042969 L 5.664062 19.042969 L 5.664062 20.996094 L 3.710938 20.996094 Z M 3.710938 19.042969 "
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("path", {
-                      staticStyle: {
-                        stroke: "none",
-                        "fill-rule": "nonzero",
-                        fill: "rgb(0%,0%,0%)",
-                        "fill-opacity": "1"
-                      },
-                      attrs: {
-                        d:
-                          "M 7.617188 19.042969 L 9.570312 19.042969 L 9.570312 20.996094 L 7.617188 20.996094 Z M 7.617188 19.042969 "
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("path", {
-                      staticStyle: {
-                        stroke: "none",
-                        "fill-rule": "nonzero",
-                        fill: "rgb(0%,0%,0%)",
-                        "fill-opacity": "1"
-                      },
-                      attrs: {
-                        d:
-                          "M 11.523438 19.042969 L 13.476562 19.042969 L 13.476562 20.996094 L 11.523438 20.996094 Z M 11.523438 19.042969 "
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("path", {
-                      staticStyle: {
-                        stroke: "none",
-                        "fill-rule": "nonzero",
-                        fill: "rgb(0%,0%,0%)",
-                        "fill-opacity": "1"
-                      },
-                      attrs: {
-                        d:
-                          "M 15.429688 19.042969 L 17.382812 19.042969 L 17.382812 20.996094 L 15.429688 20.996094 Z M 15.429688 19.042969 "
-                      }
-                    }),
-                    _vm._v(" "),
-                    _c("path", {
-                      staticStyle: {
-                        stroke: "none",
-                        "fill-rule": "nonzero",
-                        fill: "rgb(0%,0%,0%)",
-                        "fill-opacity": "1"
-                      },
-                      attrs: {
-                        d:
-                          "M 19.335938 15.136719 L 21.289062 15.136719 L 21.289062 17.089844 L 19.335938 17.089844 Z M 19.335938 15.136719 "
-                      }
-                    })
-                  ])
+                    },
+                    [
+                      _c("path", {
+                        staticStyle: {
+                          stroke: "none",
+                          "fill-rule": "nonzero",
+                          fill: "rgb(0%,0%,0%)",
+                          "fill-opacity": "1"
+                        },
+                        attrs: {
+                          d:
+                            "M 20.527344 4.472656 L 16.363281 0.304688 C 16.363281 0.304688 16.359375 0.304688 16.359375 0.304688 C 16.335938 0.28125 16.3125 0.257812 16.285156 0.234375 C 16.273438 0.226562 16.261719 0.21875 16.25 0.207031 C 16.234375 0.195312 16.21875 0.1875 16.203125 0.175781 C 16.1875 0.164062 16.171875 0.15625 16.15625 0.148438 C 16.144531 0.140625 16.128906 0.128906 16.117188 0.125 C 16.101562 0.113281 16.085938 0.109375 16.070312 0.101562 C 16.054688 0.09375 16.039062 0.0859375 16.023438 0.078125 C 16.007812 0.0742188 15.992188 0.0664062 15.976562 0.0625 C 15.960938 0.0546875 15.945312 0.0507812 15.925781 0.046875 C 15.910156 0.0390625 15.894531 0.0351562 15.878906 0.03125 C 15.863281 0.0273438 15.847656 0.0234375 15.828125 0.0195312 C 15.808594 0.015625 15.792969 0.015625 15.773438 0.0117188 C 15.757812 0.0078125 15.742188 0.0078125 15.726562 0.00390625 C 15.660156 0 15.589844 0 15.523438 0.00390625 C 15.507812 0.0078125 15.492188 0.0078125 15.476562 0.0117188 C 15.457031 0.015625 15.441406 0.015625 15.421875 0.0195312 C 15.402344 0.0234375 15.386719 0.0273438 15.371094 0.03125 C 15.355469 0.0351562 15.339844 0.0390625 15.324219 0.046875 C 15.304688 0.0507812 15.289062 0.0546875 15.273438 0.0625 C 15.257812 0.0664062 15.242188 0.0742188 15.226562 0.078125 C 15.210938 0.0859375 15.195312 0.09375 15.179688 0.101562 C 15.164062 0.109375 15.148438 0.113281 15.132812 0.125 C 15.121094 0.128906 15.105469 0.140625 15.09375 0.148438 C 15.078125 0.15625 15.0625 0.164062 15.046875 0.175781 C 15.03125 0.1875 15.015625 0.195312 15.003906 0.207031 C 14.988281 0.21875 14.976562 0.226562 14.964844 0.234375 C 14.9375 0.257812 14.914062 0.28125 14.890625 0.304688 C 14.890625 0.304688 14.886719 0.304688 14.886719 0.304688 L 10.722656 4.472656 C 10.316406 4.878906 10.316406 5.539062 10.722656 5.945312 C 11.128906 6.351562 11.789062 6.351562 12.195312 5.945312 L 14.582031 3.554688 L 14.582031 15.625 C 14.582031 16.199219 15.050781 16.667969 15.625 16.667969 C 16.199219 16.667969 16.667969 16.199219 16.667969 15.625 L 16.667969 3.554688 L 19.054688 5.945312 C 19.460938 6.351562 20.121094 6.351562 20.527344 5.945312 C 20.933594 5.539062 20.933594 4.878906 20.527344 4.472656 Z M 20.527344 4.472656 "
+                        }
+                      }),
+                      _vm._v(" "),
+                      _c("path", {
+                        staticStyle: {
+                          stroke: "none",
+                          "fill-rule": "nonzero",
+                          fill: "rgb(0%,0%,0%)",
+                          "fill-opacity": "1"
+                        },
+                        attrs: {
+                          d:
+                            "M 12.804688 19.054688 L 10.417969 21.445312 L 10.417969 9.375 C 10.417969 8.800781 9.949219 8.332031 9.375 8.332031 C 8.800781 8.332031 8.332031 8.800781 8.332031 9.375 L 8.332031 21.445312 L 5.945312 19.054688 C 5.539062 18.648438 4.878906 18.648438 4.472656 19.054688 C 4.066406 19.460938 4.066406 20.121094 4.472656 20.527344 L 8.636719 24.695312 C 8.636719 24.695312 8.640625 24.695312 8.640625 24.695312 C 8.664062 24.71875 8.6875 24.742188 8.714844 24.765625 C 8.726562 24.773438 8.738281 24.78125 8.75 24.792969 C 8.765625 24.804688 8.78125 24.8125 8.796875 24.824219 C 8.8125 24.835938 8.828125 24.84375 8.84375 24.851562 C 8.855469 24.859375 8.871094 24.871094 8.882812 24.875 C 8.898438 24.886719 8.914062 24.890625 8.929688 24.898438 C 8.945312 24.90625 8.960938 24.914062 8.976562 24.921875 C 8.992188 24.925781 9.007812 24.933594 9.023438 24.9375 C 9.039062 24.945312 9.054688 24.949219 9.074219 24.953125 C 9.089844 24.960938 9.105469 24.964844 9.121094 24.96875 C 9.136719 24.972656 9.152344 24.976562 9.171875 24.980469 C 9.191406 24.984375 9.207031 24.984375 9.226562 24.988281 C 9.242188 24.992188 9.257812 24.992188 9.273438 24.996094 C 9.339844 25 9.410156 25 9.476562 24.996094 C 9.492188 24.992188 9.507812 24.992188 9.523438 24.988281 C 9.542969 24.984375 9.558594 24.984375 9.578125 24.980469 C 9.597656 24.976562 9.613281 24.972656 9.628906 24.96875 C 9.644531 24.964844 9.660156 24.960938 9.675781 24.953125 C 9.695312 24.949219 9.710938 24.945312 9.726562 24.9375 C 9.742188 24.933594 9.757812 24.925781 9.773438 24.921875 C 9.789062 24.914062 9.804688 24.90625 9.820312 24.898438 C 9.835938 24.890625 9.851562 24.886719 9.867188 24.875 C 9.878906 24.867188 9.894531 24.859375 9.90625 24.851562 C 9.921875 24.84375 9.9375 24.835938 9.953125 24.824219 C 9.96875 24.8125 9.984375 24.804688 9.996094 24.792969 C 10.011719 24.78125 10.023438 24.773438 10.035156 24.765625 C 10.0625 24.742188 10.085938 24.71875 10.109375 24.695312 C 10.109375 24.695312 10.109375 24.695312 10.113281 24.695312 L 14.277344 20.527344 C 14.683594 20.121094 14.683594 19.460938 14.277344 19.054688 C 13.871094 18.648438 13.210938 18.648438 12.804688 19.054688 Z M 12.804688 19.054688 "
+                        }
+                      })
+                    ]
+                  )
                 ]
               ),
               _vm._v(" "),

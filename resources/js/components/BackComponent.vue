@@ -1,5 +1,5 @@
 <template>
-  <div class="flex items-center justify-center flex" @click="$router.go(-1)">
+  <div class="flex items-center justify-center flex cursor-pointer" @click="$router.go(-1)">
     <svg
       class="object-center"
       xmlns="http://www.w3.org/2000/svg"

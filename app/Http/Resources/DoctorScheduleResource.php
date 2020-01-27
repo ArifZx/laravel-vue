@@ -4,7 +4,7 @@ namespace App\Http\Resources;
 
 use Illuminate\Http\Resources\Json\JsonResource;
 
-class ScheludeResource extends JsonResource
+class DoctorScheduleResource extends JsonResource
 {
     /**
      * Transform the resource into an array.
@@ -16,10 +16,8 @@ class ScheludeResource extends JsonResource
     {
         return [
             'id' => $this->id,
-            'doctor' => new DoctorResource($this->doctor),
             'place' => $this->place,
             'date' => $this->from->timezone('Asia/Jakarta'),
-            'readableDate' => $this->from->timezone('Asia/Jakarta')->isoFormat('dddd, D MMMM YYYY'),
             'isToday' => $this->from->timezone('Asia/Jakarta')->isToday(),
             'day' => $this->from->timezone('Asia/Jakarta')->isoFormat('dddd'),
             'start' => $this->from->timezone('Asia/Jakarta')->format('H:i'),

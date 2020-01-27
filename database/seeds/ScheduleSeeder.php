@@ -21,7 +21,7 @@ class ScheduleSeeder extends Seeder
         
         for($i = 0; $i < 5; $i++) {
             $day = random_int(0, $i);
-            $minutes = random_int(0, $i * 3600);
+            $minutes = random_int(0, $i * 600);
             $from = Carbon::now()->addMinutes($minutes)->addDays($day);
             $to = Carbon::now()->addMinutes($minutes)->addDays($day)->addHours(2);
             array_push($data, [

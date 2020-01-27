@@ -1,10 +1,10 @@
 <template>
-  <div class="fixed top-0 bottom-0 left-0 right-0 z-10 py-2 bg-gray-200 opacity-100">
+  <div class="fixed top-0 bottom-0 left-0 right-0 z-10 bg-gray-200 opacity-100">
     <div class="h-full">
-      <div class="border-b bg-white border-gray-400 px-1">
-        <div class="flex justify-start align-middle">
+      <div class="border-b bg-white border-gray-400 px-1 py-2">
+        <div class="flex align-middle">
           <BackComponent class="w-12 h-12"></BackComponent>
-          <div>
+          <div v-if="selectedSchedule == null">
             <p class="font-light text-xs">Dokter di sekitar</p>
             <div
               class="flex items-center justify-center flex align-middle font-bold text-purple-800"
@@ -15,6 +15,17 @@
                   <path
                     style=" stroke:none;fill-rule:nonzero;fill:rgb(0%,0%,0%);fill-opacity:1;"
                     d="M 15.898438 3.683594 C 15.761719 3.554688 15.542969 3.554688 15.40625 3.683594 L 8 10.625 L 0.59375 3.683594 C 0.457031 3.554688 0.238281 3.554688 0.101562 3.683594 C -0.0351562 3.808594 -0.0351562 4.015625 0.101562 4.144531 L 7.753906 11.316406 C 7.824219 11.382812 7.910156 11.414062 8 11.414062 C 8.089844 11.414062 8.179688 11.382812 8.246094 11.316406 L 15.898438 4.144531 C 16.035156 4.015625 16.035156 3.808594 15.898438 3.683594 Z M 15.898438 3.683594 "
+                  />
+                </g>
+              </svg>
+            </div>
+          </div>
+          <div to="#" v-else class="flex justify-end w-full text-right align-middle content-end">
+            <div class="flex items-center justify-center flex h-12 w-12 cursor-pointer">
+              <svg class="object-center" width="32" height="32">
+                <g id="surface1">
+                  <path
+                    d="M27 22c-1.411 0-2.685 0.586-3.594 1.526l-13.469-6.734c0.041-0.258 0.063-0.522 0.063-0.791s-0.022-0.534-0.063-0.791l13.469-6.734c0.909 0.94 2.183 1.526 3.594 1.526 2.761 0 5-2.239 5-5s-2.239-5-5-5-5 2.239-5 5c0 0.269 0.022 0.534 0.063 0.791l-13.469 6.734c-0.909-0.94-2.183-1.526-3.594-1.526-2.761 0-5 2.239-5 5s2.239 5 5 5c1.411 0 2.685-0.586 3.594-1.526l13.469 6.734c-0.041 0.258-0.063 0.522-0.063 0.791 0 2.761 2.239 5 5 5s5-2.239 5-5c0-2.761-2.239-5-5-5z"
                   />
                 </g>
               </svg>
@@ -40,7 +51,10 @@
             placeholder="Cari nama dokter..."
           />
         </div>
-        <div v-if="selectedSpecialist" class="flex flex-wrap text-gray-800 px-2 text-sm h-full overflow-y-auto">
+        <div
+          v-if="selectedSpecialist && selectedSchedule == null"
+          class="flex flex-wrap text-gray-800 px-2 text-sm h-full overflow-y-auto"
+        >
           <div
             class="flex-none rounded-full py-2 px-4 border-2 m-2 hover:bg-blue-200 cursor-pointer"
             id="filter-none"
@@ -59,6 +73,18 @@
             v-bind:class="filterMain == 'filter-online' ? 'bg-red-200' : ''"
             v-on:click="selectfilterMain"
           >Booking online</div>
+        </div>
+
+        <div v-if="doctor">
+          <div class="align-middle items-center content-center flex flex justify-between">
+            <div class="w-3/5">
+              <p class="text-purple-800 font-bold text-xl">{{doctor.name}}</p>
+              <p class="text-gray-600 font-thin">{{doctor.gender == 'f' ? 'Wanita' : 'Laki laki'}}</p>
+            </div>
+            <div
+              class="rounded-full w-24 h-24 mx-4 flex items-center justify-center border border-red-400 bg-red-400"
+            ></div>
+          </div>
         </div>
       </div>
 
@@ -89,7 +115,10 @@
         </div>
         <div class="bg-gray-200 text-gray-200 h-32">Spacer</div>
       </div>
-      <div v-else-if="schedules != null" class="h-full overflow-y-auto  pb-20">
+      <div
+        v-else-if="schedules != null && selectedSchedule == null"
+        class="h-full overflow-y-auto pb-20"
+      >
         <div
           v-for="schedule in schedules"
           v-bind:key="schedule.id"
@@ -139,11 +168,130 @@
               class="rounded-full h-16 w-16 mx-4 flex items-center justify-center border border-red-400 bg-red-400"
             ></div>
           </div>
-          <div v-if="schedule.canOnlineBook" class="flex w-full text-pink-600 text-center h-8 align-middle justify-center items-center bg-gray-200 py-2 mt-2 cursor-pointer hover:bg-blue-200 focus:bg-red-400">Bisa buat janji online</div>
+          <div
+            v-if="schedule.canOnlineBook"
+            v-on:click="selectSchedule"
+            class="flex w-full text-pink-600 text-center h-8 align-middle justify-center items-center bg-gray-200 py-2 mt-2 cursor-pointer hover:bg-blue-200 focus:bg-red-400"
+          >Bisa buat janji online</div>
+        </div>
+        <div v-if="schedules.length == 0" class="flex justify-center content-center w-full h-full items-center">
+          <div class="items-center font-mono text-center">Tidak terdapat jadwal pada hasil pencarian, silahkan ubah filter atau lokasi.</div>
         </div>
         <div class="bg-gray-200 text-gray-200 h-32">Spacer</div>
       </div>
-      <FilterNavigation v-if="selectedSpecialist"></FilterNavigation>
+      <div v-else-if="doctor" class="h-full overflow-y-auto pb-20">
+        <p class="p-2 text-gray-800 font-semibold mt-4">Jadwal Praktik Terdekat</p>
+        <div class="m-4 border-b bg-white border-gray-400 p-2">
+          <div class="align-middle items-center content-center flex flex justify-between">
+            <div>
+              <p class="font-semibold">{{selectedSchedule.place.name}}</p>
+              <p class="text-gray-600">{{selectedSchedule.readableDate}}</p>
+              <p class="text-gray-600">{{selectedSchedule.start}} - {{selectedSchedule.end}}</p>
+            </div>
+          </div>
+          <router-link
+            to="/"
+            v-if="selectedSchedule.canOnlineBook"
+            class="flex w-full text-white font-bold text-center h-12 align-middle justify-center items-center bg-green-500 uppercase py-2 my-2 cursor-pointer hover:bg-blue-200 focus:bg-red-400"
+          >Buat Janji</router-link>
+          <div
+            class="w-full mt-8 border-gray-400 border-t flex text-center h-12 align-middle justify-between items-center cursor-pointer text-green-400"
+          >
+            <p>Lihat semua</p>
+            <svg width="16" height="16" class="mr-4 flex justify-center">
+              <g id="surface1">
+                <path
+                  style=" stroke:none;fill-rule:nonzero;fill:rgb(0%,0%,0%);fill-opacity:1;"
+                  d="M 11.90625 7.769531 L 4.574219 0.101562 C 4.445312 -0.03125 4.234375 -0.0351562 4.101562 0.09375 C 3.96875 0.21875 3.964844 0.429688 4.09375 0.5625 L 11.207031 8 L 4.09375 15.4375 C 3.964844 15.570312 3.96875 15.78125 4.101562 15.90625 C 4.167969 15.96875 4.25 16 4.332031 16 C 4.421875 16 4.507812 15.964844 4.574219 15.898438 L 11.90625 8.230469 C 12.03125 8.101562 12.03125 7.898438 11.90625 7.769531 Z M 11.90625 7.769531 "
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+        <p class="p-2 text-gray-800 font-semibold mt-4">Lokasi Praktik</p>
+        <div v-if="places" class="m-4 border-b bg-white border-gray-400 p-2">
+          <div
+            v-for="place in places"
+            v-bind:key="place.id"
+            class="border-b p-2 pr-4 border-gray-400 flex justify-between items-center cursor-pointer w-full"
+          >
+            <div class="w-5/6">
+              <p class="text-purple-800 font-semibold">{{place.name}}</p>
+              <p class="text-gray-600 text-xs">{{place.address}}</p>
+            </div>
+            <svg width="16" height="16">
+              <g id="surface1">
+                <path
+                  style=" stroke:none;fill-rule:nonzero;fill:rgb(0%,0%,0%);fill-opacity:1;"
+                  d="M 11.90625 7.769531 L 4.574219 0.101562 C 4.445312 -0.03125 4.234375 -0.0351562 4.101562 0.09375 C 3.96875 0.21875 3.964844 0.429688 4.09375 0.5625 L 11.207031 8 L 4.09375 15.4375 C 3.964844 15.570312 3.96875 15.78125 4.101562 15.90625 C 4.167969 15.96875 4.25 16 4.332031 16 C 4.421875 16 4.507812 15.964844 4.574219 15.898438 L 11.90625 8.230469 C 12.03125 8.101562 12.03125 7.898438 11.90625 7.769531 Z M 11.90625 7.769531 "
+                />
+              </g>
+            </svg>
+          </div>
+          <div
+            class="w-full border-gray-400 flex text-center h-12 align-middle justify-between items-center cursor-pointer text-green-400"
+          >
+            <p>Lihat semua</p>
+            <svg width="16" height="16" class="mr-4 flex justify-center">
+              <g id="surface1">
+                <path
+                  style=" stroke:none;fill-rule:nonzero;fill:rgb(0%,0%,0%);fill-opacity:1;"
+                  d="M 11.90625 7.769531 L 4.574219 0.101562 C 4.445312 -0.03125 4.234375 -0.0351562 4.101562 0.09375 C 3.96875 0.21875 3.964844 0.429688 4.09375 0.5625 L 11.207031 8 L 4.09375 15.4375 C 3.964844 15.570312 3.96875 15.78125 4.101562 15.90625 C 4.167969 15.96875 4.25 16 4.332031 16 C 4.421875 16 4.507812 15.964844 4.574219 15.898438 L 11.90625 8.230469 C 12.03125 8.101562 12.03125 7.898438 11.90625 7.769531 Z M 11.90625 7.769531 "
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div v-else>Tidak ada lokasi praktik</div>
+        <p class="p-2 text-gray-800 font-semibold mt-4">Keahlian</p>
+        <div v-if="specialists" class="m-4 border-b bg-white border-gray-400 p-2">
+          <div
+            v-for="specialist in specialists"
+            v-bind:key="specialist.id"
+            class="border-b p-2 pr-4 border-gray-400 flex justify-between items-center w-full"
+          >
+            <p>{{specialist.subname}}</p>
+          </div>
+          <div
+            class="w-full border-gray-400 flex text-center h-12 align-middle justify-between items-center cursor-pointer text-green-400"
+          >
+            <p>Lihat semua</p>
+            <svg width="16" height="16" class="mr-4 flex justify-center">
+              <g id="surface1">
+                <path
+                  style=" stroke:none;fill-rule:nonzero;fill:rgb(0%,0%,0%);fill-opacity:1;"
+                  d="M 11.90625 7.769531 L 4.574219 0.101562 C 4.445312 -0.03125 4.234375 -0.0351562 4.101562 0.09375 C 3.96875 0.21875 3.964844 0.429688 4.09375 0.5625 L 11.207031 8 L 4.09375 15.4375 C 3.964844 15.570312 3.96875 15.78125 4.101562 15.90625 C 4.167969 15.96875 4.25 16 4.332031 16 C 4.421875 16 4.507812 15.964844 4.574219 15.898438 L 11.90625 8.230469 C 12.03125 8.101562 12.03125 7.898438 11.90625 7.769531 Z M 11.90625 7.769531 "
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+        <p class="p-2 text-gray-800 font-semibold mt-4">Penyakit Terkait</p>
+        <div v-if="diseases" class="m-4 border-b bg-white border-gray-400 p-2">
+          <div
+            v-for="ill in diseases"
+            v-bind:key="ill.id"
+            class="border-b p-2 pr-4 border-gray-400 flex justify-between items-center w-full"
+          >
+            <p>{{ill.name}}</p>
+          </div>
+          <div
+            class="w-full border-gray-400 flex text-center h-12 align-middle justify-between items-center cursor-pointer text-green-400"
+          >
+            <p>Lihat semua</p>
+            <svg width="16" height="16" class="mr-4 flex justify-center">
+              <g id="surface1">
+                <path
+                  style=" stroke:none;fill-rule:nonzero;fill:rgb(0%,0%,0%);fill-opacity:1;"
+                  d="M 11.90625 7.769531 L 4.574219 0.101562 C 4.445312 -0.03125 4.234375 -0.0351562 4.101562 0.09375 C 3.96875 0.21875 3.964844 0.429688 4.09375 0.5625 L 11.207031 8 L 4.09375 15.4375 C 3.964844 15.570312 3.96875 15.78125 4.101562 15.90625 C 4.167969 15.96875 4.25 16 4.332031 16 C 4.421875 16 4.507812 15.964844 4.574219 15.898438 L 11.90625 8.230469 C 12.03125 8.101562 12.03125 7.898438 11.90625 7.769531 Z M 11.90625 7.769531 "
+                />
+              </g>
+            </svg>
+          </div>
+        </div>
+        <div class="bg-gray-200 text-gray-200 h-32">Spacer</div>
+      </div>
+      <FilterNavigation v-if="selectedSpecialist && selectedSchedule == null"></FilterNavigation>
     </div>
   </div>
 </template>
@@ -164,7 +312,15 @@ export default {
       specialists: null,
       selectedSpecialist: null,
       schedules: null,
-      filterMain: "filter-none"
+      selectedSchedule: null,
+      places: null,
+      doctor: null,
+      filterMain: "filter-none",
+      diseases: [
+        { id: 1, name: "Batuk Kronis" },
+        { id: 3, name: "Sinusitis Kronis" },
+        { id: 2, name: "Kesulitan Menelan" }
+      ]
     };
   },
 
@@ -190,7 +346,7 @@ export default {
           ? this.specialists.filter(v => v.id == targetId)[0]
           : null;
       this.selectedSpecialist = specialist.id;
-      console.log(this.selectedSpecialist)
+      console.log(this.selectedSpecialist);
 
       this.fetchScedule();
     },
@@ -199,23 +355,71 @@ export default {
 
       this.fetchScedule();
     },
-    fetchScedule: function() {
+    async fetchScedule() {
       this.loading = true;
-      axios
-        .get("/api/schedules?filter=" + this.filterMain+"&specialistId="+this.selectedSpecialist)
-        .then(results => {
-          this.loading = false;
-          console.log(results.data.data);
-          if (results.status === 200) {
-            this.schedules = results.data.data;
-          }
-        })
-        .catch(error => {
-          this.loading = false;
-          window.alert(error);
-        });
+      let url =
+        "/api/schedules?filter=" +
+        this.filterMain +
+        "&specialist_id=" +
+        this.selectedSpecialist +
+        "&doctor_id=" +
+        (this.selectedSchedule ? this.selectedSchedule.doctor.id : "");
+
+      try {
+        let results = await axios.get(url);
+        console.log(results.data);
+
+        if (results.status === 200) {
+          this.schedules = results.data.data;
+        }
+        this.loading = false;
+
+        return results.data.data;
+      } catch (error) {
+        this.loading = false;
+        window.alert(error);
+      }
     },
-    fetchDoctor: function(name) {}
+    selectSchedule: function(event) {
+      console.log(event.target.parentElement.id);
+      let selectedId = event.target.parentElement.id;
+
+      if (selectedId == null) {
+        window.alert(`Error can't fetch shedule id`);
+      } else {
+        this.selectedSchedule = this.schedules.filter(
+          v => v.id == selectedId
+        )[0];
+      }
+
+      console.log("Selected schedule", this.selectedSchedule);
+      this.fetchDoctor();
+    },
+    async fetchNearestSchedule() {
+      let schedule = this.selectedSchedule;
+
+      if (this.selectedSchedule == null) {
+        this.filterMain = "filter-online";
+        let schedules = await this.fetchScedule();
+        this.schedules = schedules;
+        this.selectedSchedule = this.schedules.slice(0, 1)[0];
+        schedule = this.selectedSchedule;
+      }
+
+      return schedule;
+    },
+    async fetchDoctor() {
+      // console.log('fetch doctor');
+      let schedule = await this.fetchNearestSchedule();
+      this.doctor = schedule.doctor;
+      this.places = this.doctor.activeSchedules.reduce(
+        (places, doctorSchedule) => {
+          places.push(doctorSchedule.place);
+          return places;
+        },
+        []
+      );
+    }
   },
 
   mounted: function() {
